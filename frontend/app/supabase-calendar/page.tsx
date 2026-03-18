@@ -15,6 +15,7 @@ type OrderRow = {
   copas: number | null;
   estado_pago: string | null;
   por_pagar: string | null;
+  estado_orden: string | null;
   tipo_entrega: string | null;
   nota: string | null;
   urgency: string | null;
@@ -29,9 +30,11 @@ type SelectedEvent = {
   diasRestantes: number;
   estadoPago: string;
   porPagar: string;
+  estadoOrden: string;
   tipoEntrega: string;
   nota: string;
   urgency: string;
+  completed: boolean;
 };
 
 type CalendarEvent = {
@@ -49,6 +52,32 @@ function fallbackColor(urgency: string | null) {
   if (urgency === 'soon') return '#f97316';
   if (urgency === 'attention') return '#eab308';
   return '#2563eb';
+}
+
+function normalizeText(value: string | null) {
+  return (value ?? '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function isZeroAmount(value: string | null) {
+  const digits = String(value ?? '').match(/\d/g);
+  if (!digits?.length) return false;
+  return digits.every((digit) => digit === '0');
+}
+
+function isCompletedOrder(
+  paymentStatus: string | null,
+  amountDue: string | null,
+  orderStatus: string | null
+) {
+  return (
+    normalizeText(paymentStatus) === 'pagado' &&
+    isZeroAmount(amountDue) &&
+    normalizeText(orderStatus) === 'entregado'
+  );
 }
 
 export default function SupabaseCalendarPage() {
@@ -84,9 +113,11 @@ export default function SupabaseCalendarPage() {
         diasRestantes: row.dias_restantes ?? 0,
         estadoPago: row.estado_pago ?? '',
         porPagar: row.por_pagar ?? '',
+        estadoOrden: row.estado_orden ?? '',
         tipoEntrega: row.tipo_entrega ?? '',
         nota: row.nota ?? '',
         urgency: row.urgency ?? 'normal',
+        completed: isCompletedOrder(row.estado_pago, row.por_pagar, row.estado_orden),
       },
     }));
 
@@ -149,6 +180,9 @@ export default function SupabaseCalendarPage() {
               }}
               events={events}
               height="auto"
+              eventClassNames={(arg) => (
+                arg.event.extendedProps.completed ? ['completed-order'] : []
+              )}
               eventClick={(info) => {
                 const nextSelectedEvent = {
                   title: info.event.title,
@@ -172,7 +206,7 @@ export default function SupabaseCalendarPage() {
               </p>
             ) : (
               <div className="mt-4 space-y-3 text-sm text-slate-700">
-                <div className="font-semibold text-slate-900">
+                <div className={`font-semibold text-slate-900 ${selectedEvent.completed ? 'line-through opacity-70' : ''}`}>
                   {selectedEvent.title}
                 </div>
                 <div><strong>Deadline:</strong> {selectedEvent.start}</div>
@@ -181,6 +215,7 @@ export default function SupabaseCalendarPage() {
                 <div><strong>Days remaining:</strong> {selectedEvent.diasRestantes}</div>
                 <div><strong>Payment status:</strong> {selectedEvent.estadoPago}</div>
                 <div><strong>Amount due:</strong> {selectedEvent.porPagar || '-'}</div>
+                <div><strong>Order status:</strong> {selectedEvent.estadoOrden || '-'}</div>
                 <div><strong>Delivery type:</strong> {selectedEvent.tipoEntrega}</div>
                 <div><strong>Urgency:</strong> {selectedEvent.urgency}</div>
                 <div><strong>Note:</strong> {selectedEvent.nota || '-'}</div>

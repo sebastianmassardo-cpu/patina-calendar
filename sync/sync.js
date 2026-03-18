@@ -117,6 +117,7 @@ async function syncOrders() {
       const copas = Number(getValue(row, 'Copas') || 0);
       const estado_pago = cleanText(getValue(row, 'Estado Pago'));
       const por_pagar = cleanText(getValue(row, 'Por Pagar', ' Por Pagar ', 'Por Pagar '));
+      const estado_orden = cleanText(getValue(row, 'Estado Orden', 'Estado de Orden'));
       const tipo_entrega = cleanText(getValue(row, 'Tipo Entrega'));
       const nota = cleanText(getValue(row, 'Nota'));
 
@@ -128,6 +129,7 @@ async function syncOrders() {
         copas,
         estado_pago,
         por_pagar,
+        estado_orden,
         tipo_entrega,
         nota,
         urgency: getUrgency(dias_restantes),

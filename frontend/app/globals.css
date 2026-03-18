@@ -24,3 +24,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.fc .completed-order {
+  opacity: 0.72;
+}
+
+.fc .completed-order .fc-event-main,
+.fc .completed-order .fc-list-event-title {
+  text-decoration: line-through;
+}
