@@ -1,0 +1,13 @@
+{
+  "name": "patina-calendar-project",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start",
+    "lint": "npm --prefix frontend run lint",
+    "sync:once": "npm --prefix sync run sync",
+    "sync:watch": "npm --prefix sync run watch",
+    "backend:start": "npm --prefix backend run start"
+  }
+}

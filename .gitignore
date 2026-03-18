@@ -1,0 +1,32 @@
+# dependencies
+**/node_modules/
+
+# build outputs
+**/.next/
+**/.vercel/
+**/coverage/
+**/dist/
+**/out/
+
+# environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# generated files
+**/next-env.d.ts
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# local notes and scratch files
+Comandos backend y front en.txt
+comands and notes.txt
+backend/{
