@@ -30,6 +30,8 @@ export type Order = {
   title: string;
 };
 
+const COMPLETED_ORDER_COLOR = '#8a8f98';
+
 export function fallbackColor(urgency: string | null) {
   if (urgency === 'urgent') return '#c35a37';
   if (urgency === 'soon') return '#d88a3d';
@@ -93,6 +95,7 @@ export function mapOrderRow(row: OrderRow): Order {
   const amountDue = row.por_pagar ?? '';
   const orderStatus = row.estado_orden ?? '';
   const urgency = row.urgency ?? 'normal';
+  const completed = isCompletedOrder(paymentStatus, amountDue, orderStatus);
 
   return {
     id: row.id,
@@ -106,8 +109,8 @@ export function mapOrderRow(row: OrderRow): Order {
     deliveryType: row.tipo_entrega ?? '',
     note: row.nota ?? '',
     urgency,
-    color: row.color || fallbackColor(urgency),
-    completed: isCompletedOrder(paymentStatus, amountDue, orderStatus),
+    color: completed ? COMPLETED_ORDER_COLOR : row.color || fallbackColor(urgency),
+    completed,
     title: `${row.id} - ${buyer}`,
   };
 }
