@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Patina Calendar',
-  description: 'Online orders calendar powered by Supabase and fed by the local Excel watcher.',
+  title: 'Patina Orders Dashboard',
+  description: 'A polished orders dashboard powered by Supabase and kept up to date by the local Excel watcher.',
 };
 
 export default function RootLayout({

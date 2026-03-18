@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6efe5;
+  --foreground: #24313a;
+  --patina-ivory: #fffaf3;
+  --patina-sand: #efe2cf;
+  --patina-clay: #c8704d;
+  --patina-sage: #6e8b74;
+  --patina-ink: #24313a;
+  --patina-gold: #c7a458;
 }
 
 @theme inline {
@@ -12,17 +18,15 @@
   --font-mono: Consolas, "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  background-image:
+    radial-gradient(circle at top right, rgba(200, 112, 77, 0.14), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(110, 139, 116, 0.16), transparent 24%),
+    linear-gradient(180deg, #f8f2e9 0%, #f4ebdf 100%);
 }
 
 .fc .completed-order {
@@ -33,4 +37,100 @@ body {
 .fc .completed-order .fc-event-title,
 .fc .completed-order .fc-list-event-title {
   text-decoration: line-through;
+}
+
+.fc {
+  --fc-border-color: rgba(36, 49, 58, 0.08);
+  --fc-button-bg-color: var(--patina-ink);
+  --fc-button-border-color: var(--patina-ink);
+  --fc-button-hover-bg-color: #182127;
+  --fc-button-hover-border-color: #182127;
+  --fc-button-active-bg-color: var(--patina-clay);
+  --fc-button-active-border-color: var(--patina-clay);
+  --fc-page-bg-color: rgba(255, 255, 255, 0.82);
+  --fc-neutral-bg-color: rgba(255, 255, 255, 0.72);
+  --fc-today-bg-color: rgba(199, 164, 88, 0.14);
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  gap: 0.8rem;
+  margin-bottom: 1.3rem;
+}
+
+.fc .fc-toolbar-title {
+  color: var(--patina-ink);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.fc .fc-button {
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(36, 49, 58, 0.16);
+  font-weight: 600;
+  padding: 0.55rem 0.95rem;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: rgba(36, 49, 58, 0.74);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 0.8rem 0.3rem;
+  text-transform: uppercase;
+}
+
+.fc .fc-daygrid-day-frame {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(250, 244, 236, 0.5));
+  min-height: 7.25rem;
+}
+
+.fc .fc-daygrid-day-number {
+  color: var(--patina-ink);
+  font-weight: 700;
+  padding: 0.55rem 0.65rem;
+}
+
+.fc .fc-daygrid-event,
+.fc .fc-timegrid-event {
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(36, 49, 58, 0.14);
+}
+
+.fc .fc-daygrid-event-harness {
+  margin-top: 0.28rem;
+}
+
+.fc .fc-h-event .fc-event-main {
+  padding: 0.18rem 0.38rem;
+}
+
+.fc .fc-timegrid-event .fc-event-main {
+  padding: 0.3rem 0.45rem;
+}
+
+.fc .fc-scrollgrid,
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: rgba(36, 49, 58, 0.08);
+}
+
+.fc .fc-daygrid-event-dot {
+  display: none;
+}
+
+.fc .fc-daygrid-dot-event {
+  background: transparent;
+  margin-inline: 0.35rem;
+  padding: 0;
+}
+
+.fc .fc-timegrid-slot {
+  height: 1.95rem;
+}
+
+.fc .fc-timegrid-slot-label-cushion {
+  color: rgba(36, 49, 58, 0.7);
+  font-size: 0.78rem;
 }
