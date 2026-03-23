@@ -18,6 +18,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+sync/watcher.log
+sync/.watcher.out.log
+sync/.watcher.err.log
 
 # generated files
 **/next-env.d.ts
